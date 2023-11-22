@@ -1,0 +1,42 @@
+class Vehiculo (val marca: String, Val  modelo: String, Var color: String{
+
+  init{
+        println("""Los datos del coche son:
+        marca: $marca
+        modelo: $modelo
+        color: $color""")
+  }}
+
+Class vehiculo {
+      var color= ""
+      var marca= ""
+      var modelo= ""
+      var placas= ""
+
+}
+
+Class vehiculo constructor (val marca: String, Val  modelo: String, Var color: String){
+      var placas= ""
+      var gasolina= 0f
+      var encendido= false
+}
+
+Class vehiculo constructor (val marca: String, Val  modelo: String, Var color: String){
+
+      init{
+        println("""Los datos del coche son:
+        marca: $marca
+        modelo: $modelo
+        color: $color""")
+      }
+
+constructor (marca:String, modelo: String, color: String, placas: String) this (marca, modelo, color){
+this.placas = placas
+println("Las plascas son: ${this.placas}")
+}
+
+      var placas= ""
+      var gasolina= 0f
+      var encendido= false
+
+}
