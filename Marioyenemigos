@@ -1,0 +1,39 @@
+fun main() {
+    // Crea un personaje
+    val player = Player("Mario", 3, 0, 0)
+
+    // Crea obstaculos y enemigos para el nivel
+    val obstacles = listOf(
+        Obstacle("Block", 5),
+        Obstacle("Pit", 10),
+        Obstacle("Spikes", 15)
+    )
+    val enemies = listOf(
+        Enemy("Goomba", 3),
+        Enemy("Koopa Troopa", 12)
+    )
+
+    //Crea el nivel
+    val level = Level(obstacles, enemies)
+
+    //Construye el juego con el nivel y el nivel  
+    val game = Game(player, level)
+
+    // Configura las acciones del personaje
+    player.moveRight(5)
+    player.jump(10)
+    player.collectCoin()
+
+    // Revisa las colisiones
+    val collided = game.checkCollision()
+    val encountered = game.checkEncounter()
+
+    // Muestra las construcciones anteriores
+    println("Player: ${player.name}")
+    println("Position: ${player.position}")
+    println("Coins: ${player.coins}")
+    println("Collided: $collided")
+    println("Encountered: $encountered")
+}
+
+// Segun las fotos que tengo y le acompleté con un codigo que encontré en la red
