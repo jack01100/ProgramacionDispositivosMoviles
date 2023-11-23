@@ -1,39 +1,79 @@
 fun main() {
-    // Crea un personaje
-    val player = Player("Mario", 3, 0, 0)
+    package clases
 
-    // Crea obstaculos y enemigos para el nivel
-    val obstacles = listOf(
-        Obstacle("Block", 5),
-        Obstacle("Pit", 10),
-        Obstacle("Spikes", 15)
-    )
-    val enemies = listOf(
-        Enemy("Goomba", 3),
-        Enemy("Koopa Troopa", 12)
-    )
+class Mario(var vidas : Int = 3) {
+    init {
+        println("its a me ! mario")
+    }
+    private var state = "small"
+        set(value){
+            field = value
+        }
+        get() = field
 
-    //Crea el nivel
-    val level = Level(obstacles, enemies)
 
-    //Construye el juego con el nivel y el nivel  
-    val game = Game(player, level)
+    private var lives = 3
+        get(){
+            return lives-1
+        }
+    private fun die(){
+        lives--
+        println("has perdido una vida")
+    }
+    public fun collision(collisionObj : String){
+        when(collisionObj){
+            "Goomba" -> die()
+            "Super mushroom" -> state = "Super mario"
+            "Fire flower" -> state = "Fire Mario"
+            else -> println("Objeto desconocido !! no pasa nada")
+        }
+    }
 
-    // Configura las acciones del personaje
-    player.moveRight(5)
-    player.jump(10)
-    player.collectCoin()
 
-    // Revisa las colisiones
-    val collided = game.checkCollision()
-    val encountered = game.checkEncounter()
 
-    // Muestra las construcciones anteriores
-    println("Player: ${player.name}")
-    println("Position: ${player.position}")
-    println("Coins: ${player.coins}")
-    println("Collided: $collided")
-    println("Encountered: $encountered")
+
+}
+package clases
+
+open class Enemy(val name: String, val strength : Int) {
+    protected var direction : String = "LEFT"
+
+    protected fun changeDirection(){
+        direction = if (direction == "RIGHT") "LEFT" else "RIGTH"
+        println("$name va en direccion $direction")
+    }
+
+    protected fun die(){
+        println("$name ha muerto")
+    }
+    open fun collision(collider: String){
+        when(collider) {
+            "Weapon" -> die()
+            "Enemy" -> changeDirection()
+        }
+    }
 }
 
-// Segun las fotos que tengo y le acompleté con un codigo que encontré en la red
+package clases
+
+class Goomba: Enemy("Goomba", 1 ) {
+    init {
+        println("Iniciando subclase de $name")
+    }
+}
+
+package clases
+
+class Koopa: Enemy("koopa", 2) {
+
+    override fun collision(collider : String){
+        when(collider){
+            "Weapon" -> {
+                var state = "Shell"
+                println("el estado es ahora $state")
+            }
+            "Enemy" -> changeDirection()
+        }
+    }
+}
+
